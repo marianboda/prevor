@@ -1,0 +1,22 @@
+{
+  "name": "prevor",
+  "version": "0.0.1",
+  "description": "CR2 preview extracting script",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marianboda/prevor.git"
+  },
+  "author": "Marian Boda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marianboda/prevor/issues"
+  },
+  "homepage": "https://github.com/marianboda/prevor#readme",
+  "dependencies": {
+    "async": "^2.0.0-rc.5"
+  }
+}
