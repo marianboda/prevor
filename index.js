@@ -1,9 +1,12 @@
 const exec = require('child_process').exec
 const fs = require('fs')
 
+let dir = process.argv[2]
+
 function getFiles(path) {
   let defer = Promise.defer()
   fs.readdir(path, (err, data) => {
+    if (err) return defer.reject(err)
     defer.resolve(data)
   })
   return defer.promise
@@ -31,3 +34,7 @@ function getExif(path) {
   })
   return defer.promise
 }
+
+getFiles(dir).then(
+  (data) => console.log(data.length)
+)
