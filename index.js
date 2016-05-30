@@ -44,17 +44,6 @@ function getExif(path) {
   return defer.promise
 }
 
-getFiles(dir).then((data) => {
-  console.log(data.length + ' files found')
-  if (data.length == 0) {
-    console.log('nothing to do')
-    process.exit()
-  }
-  mkdirp(targetDir, (err) => {
-    processFile(data[0], () => null)
-  })
-})
-
 function processFile(f, cb) {
   console.log('processing ' + f)
   let fullPath = path.join(dir, f)
@@ -70,3 +59,18 @@ function processFile(f, cb) {
     })
   })
 }
+
+let q = async.queue(processFile, 8)
+
+q.drain = () => console.log('All items done')
+
+getFiles(dir).then((data) => {
+  console.log(data.length + ' files found')
+  if (data.length == 0) {
+    console.log('nothing to do')
+    process.exit()
+  }
+  mkdirp(targetDir, (err) => {
+    data.map(i => q.push(i))
+  })
+})
